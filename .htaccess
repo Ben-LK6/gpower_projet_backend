@@ -1,0 +1,23 @@
+# .htaccess
+RewriteEngine On
+
+# Autoriser les requêtes CORS
+Header always set Access-Control-Allow-Origin "https://votre-app.vercel.app"
+Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+Header always set Access-Control-Allow-Headers "Content-Type, Authorization"
+
+# Rediriger toutes les requêtes vers index.php (si routeur API)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^api/(.*)$ api/$1.php [L,QSA]
+
+# Bloquer l'accès au fichier config.php
+<Files "config.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# PHP settings (si nécessaire)
+php_value upload_max_filesize 10M
+php_value post_max_size 10M
+php_value max_execution_time 300
