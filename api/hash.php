@@ -4,7 +4,7 @@ $hash = password_hash($password, PASSWORD_DEFAULT);
 
 echo "Mot de passe: " . $password . "\n";
 echo "Hash généré: " . $hash . "\n";
-echo "URL: http://localhost:8000/generate_hash.php\n";
+echo "URL: https://gpower.ct.ws/generate_hash.php\n";
 
 // Test de vérification
 // Remplacer la vérification du hash par :

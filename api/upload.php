@@ -1,16 +1,7 @@
 <?php
 // backend/api/upload.php
+require_once 'cors.php'; // CORS en premier !
 require_once 'config.php';
-
-header("Access-Control-Allow-Origin: http://localhost:3000");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit();
-}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
@@ -56,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 throw new Exception('Fichier créé mais introuvable');
             }
             
-            $imageUrl = "http://localhost:8000/uploads/" . $fileName;
+            $imageUrl = "https://gpower.infinityfreeapp.com/uploads/" . $fileName;
             
             echo json_encode([
                 "success" => true,

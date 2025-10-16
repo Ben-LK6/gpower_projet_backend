@@ -1,18 +1,8 @@
 <?php
+require_once 'cors.php'; // CORS en premier !
 require_once 'config.php';
 
-// Headers CORS
-header("Access-Control-Allow-Origin: http://localhost:3000");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-
-// Gérer la pré-requête OPTIONS
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit();
-}
-
+$pdo = getDBConnection();
 $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {

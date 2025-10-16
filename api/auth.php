@@ -1,38 +1,35 @@
 <?php
+require_once 'cors.php';
 require_once 'config.php';
 
-// Headers CORS IMPORTANTS
-header("Access-Control-Allow-Origin: http://localhost:3000");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+$pdo = getDBConnection();
 
-// Gérer la pré-requête OPTIONS
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit();
+// Créer la table admin si elle n'existe pas
+$pdo->exec("CREATE TABLE IF NOT EXISTS admin (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)");
+
+// Créer un admin par défaut si aucun n'existe
+$stmt = $pdo->query("SELECT COUNT(*) as count FROM admin");
+if ($stmt->fetch()['count'] == 0) {
+    $pdo->prepare("INSERT INTO admin (username, password_hash) VALUES (?, ?)")
+        ->execute(['admin', 'admin123']);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $input = file_get_contents('php://input');
     $data = json_decode($input, true);
     
-    if (json_last_error() !== JSON_ERROR_NONE) {
-        http_response_code(400);
-        echo json_encode(["success" => false, "message" => "JSON invalide"]);
-        exit;
-    }
-    
     $username = $data['username'] ?? '';
     $password = $data['password'] ?? '';
-    
-    error_log("Tentative de connexion: $username");
     
     $stmt = $pdo->prepare("SELECT * FROM admin WHERE username = ?");
     $stmt->execute([$username]);
     $admin = $stmt->fetch(PDO::FETCH_ASSOC);
     
-    // VÉRIFICATION SIMPLIFIÉE (mot de passe en clair)
     if ($admin && $password === $admin['password_hash']) {
         echo json_encode(["success" => true, "message" => "Connexion réussie"]);
     } else {
