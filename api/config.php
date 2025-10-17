@@ -5,11 +5,11 @@
 
 // config.php
 
-// Configuration de la base de données locale
-define('DB_HOST', 'localhost'); 
-define('DB_NAME', 'vos_achats_db'); 
-define('DB_USER', 'root'); 
-define('DB_PASS', '');
+// Configuration de la base de données InfinityFree
+define('DB_HOST', 'sql105.infinityfree.com'); // Remplacez par votre host
+define('DB_NAME', 'if0_40174223_gpower'); // Remplacez par votre DB name
+define('DB_USER', 'if0_40174223'); // Remplacez par votre username
+define('DB_PASS', 'jQrTSnjte9'); // Remplacez par votre password
 
 // Connexion à la base de données
 function getDBConnection() {

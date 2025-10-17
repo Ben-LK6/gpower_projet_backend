@@ -6,6 +6,7 @@ $allowed_origins = [
     'https://gpower-projet-frontend.vercel.app',
     'http://localhost:3000',     // Pour développement local
     'http://192.168.1.80:3000',  // Pour développement local réseau
+    'https://gpower.ct.ws', // Votre domaine InfinityFree
 ];
 
 // Récupérer l'origine de la requête
