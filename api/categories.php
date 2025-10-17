@@ -1,18 +1,10 @@
 <?php
+// categories.php
+// CORS EN PREMIER !
+require_once 'cors.php';
 require_once 'config.php';
-require_once 'cors.php'; // CORS en premier !
 
 $pdo = getDBConnection();
-
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit();
-}
-
 $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {
@@ -99,7 +91,6 @@ function deleteCategory($pdo) {
         $input = json_decode(file_get_contents('php://input'), true);
         $id = $input['id'] ?? 0;
         
-        // Vérifier s'il y a des produits dans cette catégorie
         $stmt = $pdo->prepare("SELECT COUNT(*) as count FROM produits WHERE category_id = ?");
         $stmt->execute([$id]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -110,7 +101,6 @@ function deleteCategory($pdo) {
             return;
         }
         
-        // Supprimer la catégorie
         $stmt = $pdo->prepare("DELETE FROM categories WHERE id = ?");
         $stmt->execute([$id]);
         

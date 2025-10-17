@@ -1,5 +1,7 @@
 <?php
-require_once 'cors.php'; // CORS en premier !
+// produits.php
+// CORS EN PREMIER !
+require_once 'cors.php';
 require_once 'config.php';
 
 $pdo = getDBConnection();
@@ -79,7 +81,7 @@ function addProduct($pdo) {
         $description = $input['description'] ?? '';
         $prix = $input['prix'] ?? 0;
         $image = $input['image'] ?? '';
-        $category_id = $input['category_id'] ?? 5; // Default to "Autre"
+        $category_id = $input['category_id'] ?? 5;
         
         $stmt = $pdo->prepare("INSERT INTO produits (nom, description, prix, image, category_id) VALUES (?, ?, ?, ?, ?)");
         $stmt->execute([$nom, $description, $prix, $image, $category_id]);

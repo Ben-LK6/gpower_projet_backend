@@ -1,17 +1,12 @@
-
 <?php
-
-
-
 // config.php
+// NE PAS METTRE DE HEADERS ICI ! C'est le rôle de cors.php
 
-// Configuration de la base de données InfinityFree
-define('DB_HOST', 'sql105.infinityfree.com'); // Remplacez par votre host
-define('DB_NAME', 'if0_40174223_gpower'); // Remplacez par votre DB name
-define('DB_USER', 'if0_40174223'); // Remplacez par votre username
-define('DB_PASS', 'jQrTSnjte9'); // Remplacez par votre password
+define('DB_HOST', 'sql105.infinityfree.com');
+define('DB_NAME', 'if0_40174223_gpower');
+define('DB_USER', 'if0_40174223');
+define('DB_PASS', 'jQrTSnjte9');
 
-// Connexion à la base de données
 function getDBConnection() {
     try {
         $conn = new PDO(
@@ -31,39 +26,4 @@ function getDBConnection() {
         exit();
     }
 }
-
-
-
-
-
-
-
-/*
-
-
-// backend/api/config.php
-
-// Headers pour autoriser React à communiquer avec l'API
-header("Access-Control-Allow-Origin: https://gpower-projet-frontend.vercel.app");
-header("Access-Control-Allow-Credentials: true");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-
-// Configuration de la base de données
-$host = 'localhost';
-$dbname = 'vos_achats_db';  // Le nom que vous avez choisi
-$username = 'root';         // Votre utilisateur MySQL
-$password = '';             // Votre mot de passe MySQL
-
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $e) {
-    echo json_encode(["error" => "Connection failed: " . $e->getMessage()]);
-    exit;
-}
-
-*/
-
 ?>

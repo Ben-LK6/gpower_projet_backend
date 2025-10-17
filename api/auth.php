@@ -1,4 +1,6 @@
 <?php
+// auth.php
+// CORS EN PREMIER !
 require_once 'cors.php';
 require_once 'config.php';
 
