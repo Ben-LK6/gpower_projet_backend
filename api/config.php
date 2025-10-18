@@ -2,10 +2,11 @@
 // config.php
 // NE PAS METTRE DE HEADERS ICI ! C'est le rôle de cors.php
 
-define('DB_HOST', 'sql105.infinityfree.com');
-define('DB_NAME', 'if0_40174223_gpower');
-define('DB_USER', 'if0_40174223');
-define('DB_PASS', 'jQrTSnjte9');
+// Configuration pour Render avec variables d'environnement
+define('DB_HOST', $_ENV['DB_HOST'] ?? 'localhost');
+define('DB_NAME', $_ENV['DB_NAME'] ?? 'gpower_db');
+define('DB_USER', $_ENV['DB_USER'] ?? 'root');
+define('DB_PASS', $_ENV['DB_PASS'] ?? '');
 
 function getDBConnection() {
     try {
