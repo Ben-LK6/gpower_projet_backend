@@ -1,12 +1,15 @@
-# Configuration pour développement local
+# Configuration pour InfinityFree
 RewriteEngine On
 
-# CORS Headers pour local
+# CORS Headers
 <IfModule mod_headers.c>
-    # Autoriser toutes les origines en local
-    Header always set Access-Control-Allow-Origin "*"
+    # Origines autorisées
+    SetEnvIf Origin "^(https?://(localhost:3000|gpower-projet-frontend\.vercel\.app|gpower\.ct\.ws))" ALLOWED_ORIGIN=$0
+    Header always set Access-Control-Allow-Origin %{ALLOWED_ORIGIN}e env=ALLOWED_ORIGIN
+    
     Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
     Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With, Accept"
+    Header always set Access-Control-Allow-Credentials "true"
     Header always set Access-Control-Max-Age "86400"
     
     # Content-Type pour JSON
