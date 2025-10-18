@@ -8,22 +8,27 @@ $allowed_origins = [
     'https://gpower.ct.ws'
 ];
 
-$origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
+$origin = $_SERVER['HTTP_ORIGIN'] ?? : '';
 
 if (in_array($origin, $allowed_origins)) {
     header("Access-Control-Allow-Origin: $origin");
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+    header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, Accept");
+    header("Access-Control-Allow-Credentials: true");
+    header("Access-Control-Max-Age: 86400");
+    header("Content-Type: application/json; charset=UTF-8");
 } else {
+    // par défaut, autorise quand même ton frontend principal
     header("Access-Control-Allow-Origin: https://gpower-projet-frontend.vercel.app");
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+    header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, Accept");
+    header("Content-Type: application/json; charset=UTF-8");
 }
 
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, Accept");
-header("Access-Control-Allow-Credentials: true");
-header("Access-Control-Max-Age: 86400");
-header("Content-Type: application/json; charset=UTF-8");
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
-    exit(0);
+    exit;
 }
 ?>
