@@ -2,11 +2,11 @@
 // config.php
 // NE PAS METTRE DE HEADERS ICI ! C'est le rôle de cors.php
 
-// Configuration pour Render avec variables d'environnement
-define('DB_HOST', $_ENV['DB_HOST'] ?? 'localhost');
-define('DB_NAME', $_ENV['DB_NAME'] ?? 'gpower_db');
-define('DB_USER', $_ENV['DB_USER'] ?? 'root');
-define('DB_PASS', $_ENV['DB_PASS'] ?? '');
+// Configuration de la base de données locale
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'vos_achats_db');
+define('DB_USER', 'root');
+define('DB_PASS', '');
 
 function getDBConnection() {
     try {
